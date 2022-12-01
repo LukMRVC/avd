@@ -1,0 +1,15 @@
+*.zip
+*.xml
+*.csv
+*.sql
+
+cmake-build-debug
+cmake-build-release
+obj/
+bin/
+*.csproj
+
+.vscode/
+.vscode
+.idea/
+.idea
