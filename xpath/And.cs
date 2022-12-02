@@ -7,8 +7,6 @@ namespace TupleAtATime
         private readonly BasicOperator first;
         private readonly BasicOperator second;
 
-        private bool secondsTurn = false;
-
         public And(BasicOperator _first, BasicOperator _second)
         {
             this.first = _first;
@@ -27,7 +25,6 @@ namespace TupleAtATime
             if (!IsOpen)
             {
                 IsOpen = true;
-                // secondsTurn = false;
             }
 
             while (IsOpen)
@@ -35,15 +32,12 @@ namespace TupleAtATime
                 // TODO: While second move next!
                 while (first.MoveNext())
                 {
-                    // secondsTurn = true;
-                    // second.SetContext(first.Current);
                     if (second.MoveNext())
                     {
                         Current = first.Current;
                         return true;
                     }
                     second.Reset();
-                    // secondsTurn = false;
                 }
                 break;
             }

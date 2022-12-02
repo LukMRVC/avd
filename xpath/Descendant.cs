@@ -37,7 +37,10 @@ namespace TupleAtATime
                 {
                     for (int i = _input.Current.ChildNodes.Count - 1; i >= 0; i--)
                     {
-                        stack.Push(_input.Current.ChildNodes[i]);
+                        if (_input.Current.ChildNodes[i].Name != "#text")
+                        {
+                            stack.Push(_input.Current.ChildNodes[i]);
+                        }
                     }
                 }
 
@@ -54,15 +57,6 @@ namespace TupleAtATime
                     }
                     if (subtree.Name == _tagName)
                     {
-                        var hasId = subtree.Attributes["id"];
-                        if (_tagName == "item" && hasId != null)
-                        {
-                            System.Console.WriteLine("ItemID: " + hasId.Value);
-                            if (hasId.Value == "item8")
-                            {
-                                System.Console.WriteLine("This is the one!");
-                            }
-                        }
                         Current = subtree;
                         return true;
                     }
@@ -87,7 +81,7 @@ namespace TupleAtATime
         public override void Reset()
         {
             _input.Reset();
-            // _inputCurrentElement = null;
+            stack.Clear();
             IsOpen = false;
         }
 

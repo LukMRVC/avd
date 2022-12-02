@@ -39,11 +39,11 @@ namespace TupleAtATime
                     break;
                 }
 
+                _filter.Reset();
                 _filter.SetContext(_input.Current);
                 if (_filter.MoveNext())
                 {
                     Current = _input.Current;
-                    _filter.Reset();
                     return true;
                 }
             }

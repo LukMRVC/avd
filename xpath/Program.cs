@@ -13,10 +13,10 @@ namespace TupleAtATime
             // var queryAB_C = new Filter(new Child(new Child(new Root("./example.xml"), "a"), "b"), new Child(new Context(), "c"));
             // var queryADescC = new Child(new Descendant(new Child(new Root("./example.xml"), "a"), "c"), "e");
 
-            var queryAandC = new Filter(new Child(new Child(new Child(new Root("./example.xml"), "a"), "b"), "b"), new And(new Child(new Context(), "c"), new Child(new Context(), "d")));
+            // var queryAandC = new Filter(new Child(new Child(new Child(new Root("./example.xml"), "a"), "b"), "b"), new And(new Child(new Context(), "c"), new Child(new Context(), "d")));
 
             /* //b[./c and ./d]  */
-            var queryAnd2 = new Filter(new Descendant(new Root("./example2.xml"), "b"), new And(new Child(new Context(), "c"), new Child(new Context(), "d")));
+            // var queryAnd2 = new Filter(new Descendant(new Root("./example2.xml"), "b"), new And(new Child(new Context(), "c"), new Child(new Context(), "d")));
 
 
             // printResult(queryAB);
@@ -81,6 +81,36 @@ namespace TupleAtATime
             );
             // Console.WriteLine(xmark2.ToString());
             printResult(xmark2);
+
+            /* DOC//open_auction[./initial and ./current and ./reserve and ./type and ./annotation[./happiness and .//bold and .//keyword]] */
+            /*    //open_auction[./initial and ./current and ./reserve and ./type and ./annotation[./happiness and .//bold and .//keyword]] */
+            var xmark3 = new Filter(
+                new Descendant(xmarkRoot, "open_auction"),
+                new And(
+                    new And(
+                        new And(
+                            new Child(new Context(), "initial"),
+                            new Child(new Context(), "current")
+                        ),
+                        new And(
+                            new Child(new Context(), "reserve"),
+                            new Child(new Context(), "type")
+                        )
+                    ),
+                    new Filter(
+                        new Child(new Context(), "annotation"),
+                        new And(
+                            new And(
+                                new Child(new Context(), "happiness"),
+                                new Descendant(new Context(), "bold")
+                            ),
+                            new Descendant(new Context(), "keyword")
+                        )
+                    )
+                )
+            );
+            // System.Console.WriteLine(xmark3.ToString());
+            printResult(xmark3);
         }
 
         static void printResult(BasicOperator result)
